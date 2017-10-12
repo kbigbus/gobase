@@ -5,22 +5,20 @@ import (
 	"time"
 )
 
-var arr1 = [50]int{0, 1}
-
-func Fibonacc_arr(i int) int {
-	if i <= 1 {
-		return arr1[i]
-	} else {
-		arr1[i] = arr1[i-1] + arr1[i-2]
-		return arr1[i]
+func Finalen() func() int {
+	var x, y = 0, 1
+	return func() int {
+		var temp = x
+		x, y = y, x+y
+		return temp
 	}
 }
+
 func main() {
-	var output int
 	start := time.Now()
+	var f = Finalen()
 	for i := 0; i < 50; i++ {
-		output = Fibonacc_arr(i)
-		fmt.Println(output)
+		fmt.Println(f())
 	}
 	end := time.Now()
 	delta := end.Sub(start)
