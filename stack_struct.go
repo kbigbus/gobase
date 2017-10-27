@@ -5,23 +5,32 @@ import (
 	"strconv"
 )
 
-type Stack [4]string
+const LIMIT = 4
+
+type Stack struct {
+	index int
+	list  [LIMIT]string
+}
 
 func (s *Stack) Push(x string) {
-	for i, v := range s {
+	arr := &(s.list)
+	for i, v := range arr {
 		if v == "" {
-			s[i] = x
+			arr[i] = x
+			s.index = i + 1
 			break
 		}
 	}
 }
 
 func (s *Stack) Pop() string {
-	v := len(s)
+	arr := &(s.list)
+	v := len(arr)
 	x := ""
 	for i := v - 1; i >= 0; i-- {
-		if s[i] != "" {
-			x = s[i]
+		if arr[i] != "" {
+			x = arr[i]
+			s.index = i
 			break
 		}
 	}
@@ -30,14 +39,14 @@ func (s *Stack) Pop() string {
 
 func (s Stack) String() string {
 	str := ""
-	for i, v := range s {
+	for i, v := range s.list {
 		str += "[" + strconv.Itoa(i) + ":" + v + "]"
 	}
 	return str + "\n"
 }
 
 func main() {
-	s := Stack{"i", "j"}
+	s := Stack{2, [LIMIT]string{"i", "j"}}
 	fmt.Print(s)
 	s.Push("x")
 	fmt.Print(s)

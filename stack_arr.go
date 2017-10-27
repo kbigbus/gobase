@@ -5,7 +5,9 @@ import (
 	"strconv"
 )
 
-type Stack [4]string
+const LIMIT = 4
+
+type Stack [LIMIT]string
 
 func (s *Stack) Push(x string) {
 	for i, v := range s {
